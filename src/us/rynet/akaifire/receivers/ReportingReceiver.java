@@ -14,10 +14,10 @@ public class ReportingReceiver extends MidiReceiver {
     System.out.println();
     System.out.println("MidiMessage Data:");
     System.out.println("--------");
-    System.out.println("Status Byte/MIDI Command:"+message.getStatus());
+    System.out.println("Status Byte/MIDI Command:" + message.getStatus());
 
-    for (int i = 1;i < message.getMessage().length;i++)
-      System.out.println("Param "+(i+1)+": "+(int)(message.getMessage()[i] & 0xFF));
+    for (int i = 1; i < message.getMessage().length; i++)
+      System.out.println("Param " + (i + 1) + ": " + (int)(message.getMessage()[i] & 0xFF));
   }
 
   public void close() {}

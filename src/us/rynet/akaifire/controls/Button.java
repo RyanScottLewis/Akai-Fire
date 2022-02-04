@@ -16,13 +16,12 @@ public class Button extends Control {
     super(index);
   }
 
-  public boolean getPressed() {
-    return pressed;
-  }
+  public boolean getPressed() { return pressed; }
 
   public boolean setPressed(boolean value) {
     pressed = value;
-    if (!pressed) publish();
+    if (!pressed)
+      publish();
 
     return pressed;
   }

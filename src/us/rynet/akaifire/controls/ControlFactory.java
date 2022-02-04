@@ -15,7 +15,7 @@ public class ControlFactory {
   public <T extends Control> T create(String type, int controlNumber) {
     Control result = null;
 
-    switch(type) {
+    switch (type) {
       case "Button":
         result = new Button(controlNumber);
         break;
@@ -37,8 +37,8 @@ public class ControlFactory {
   public <T extends Control> ArrayList<T> create(String type, int count, int initialControlNumber) {
     ArrayList<T> result = new ArrayList<T>();
 
-    for (int index=0; index < count; index++)
-      result.add( create(type, initialControlNumber + index) );
+    for (int index = 0; index < count; index++)
+      result.add(create(type, initialControlNumber + index));
 
     return result;
   }

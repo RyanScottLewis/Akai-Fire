@@ -57,42 +57,49 @@ public class AkaiFire {
     setupControls();
   }
 
-  public ArrayList<Control> getControls() {
-    return controls;
-  }
+  public ArrayList<Control> getControls() { return controls; }
 
-  public void setControls(ArrayList<Control> controls) {
-    this.controls = controls;
-  }
+  public void setControls(ArrayList<Control> controls) { this.controls = controls; }
 
-  public Screen           getScreen()           { return screen; }
-  public PadCollection    getPads()             { return pads; }
+  public Screen getScreen() { return screen; }
+
+  public PadCollection getPads() { return pads; }
+
   public ButtonCollection getTransportButtons() { return transportButtons; }
-  public ButtonCollection getControlButtons()   { return controlButtons; }
-  public ButtonCollection getMuteSoloButtons()  { return muteSoloButtons; }
-  public Button           getModeButton()       { return modeButton; }
-  public KnobCollection   getKnobs()            { return knobs; }
-  public ButtonCollection getPatternButtons()   { return patternButtons; }
-  public Button           getBrowserButton()    { return browserButton; }
-  public Knob             getSelectKnob()       { return selectKnob; }
-  public Button           getSelectButton()     { return selectButton; }
-  public ButtonCollection getGridButtons()      { return gridButtons; }
+
+  public ButtonCollection getControlButtons() { return controlButtons; }
+
+  public ButtonCollection getMuteSoloButtons() { return muteSoloButtons; }
+
+  public Button getModeButton() { return modeButton; }
+
+  public KnobCollection getKnobs() { return knobs; }
+
+  public ButtonCollection getPatternButtons() { return patternButtons; }
+
+  public Button getBrowserButton() { return browserButton; }
+
+  public Knob getSelectKnob() { return selectKnob; }
+
+  public Button getSelectButton() { return selectButton; }
+
+  public ButtonCollection getGridButtons() { return gridButtons; }
 
   protected void setupControls() {
     ControlFactory controlFactory = new ControlFactory(getControls());
 
     modeButton    = controlFactory.create("Button", MODE_INDEX);
     browserButton = controlFactory.create("Button", BROWSER_INDEX);
-    selectKnob    = controlFactory.create("Knob",   SELECT_KNOB_INDEX);
+    selectKnob    = controlFactory.create("Knob", SELECT_KNOB_INDEX);
     selectButton  = controlFactory.create("Button", SELECT_BUTTON_INDEX);
 
-    pads.addAll(             controlFactory.create("Pad",    PAD_COUNT,              PAD_INDEX_LOWER) );
-    transportButtons.addAll( controlFactory.create("Button", TRANSPORT_BUTTON_COUNT, TRANSPORT_INDEX_LOWER) );
-    controlButtons.addAll(   controlFactory.create("Button", CONTROL_BUTTON_COUNT,   CONTROL_INDEX_LOWER) );
-    muteSoloButtons.addAll(  controlFactory.create("Button", MUTE_SOLO_BUTTON_COUNT, MUTE_SOLO_INDEX_LOWER) );
-    knobs.addAll(            controlFactory.create("Knob",   KNOB_COUNT,             KNOB_INDEX_LOWER) );
-    patternButtons.addAll(   controlFactory.create("Button", PATTERN_BUTTON_COUNT,   PATTERN_INDEX_LOWER) );
-    gridButtons.addAll(      controlFactory.create("Button", GRID_BUTTON_COUNT,      GRID_INDEX_LOWER) );
+    pads.addAll(controlFactory.create("Pad", PAD_COUNT, PAD_INDEX_LOWER));
+    transportButtons.addAll(controlFactory.create("Button", TRANSPORT_BUTTON_COUNT, TRANSPORT_INDEX_LOWER));
+    controlButtons.addAll(controlFactory.create("Button", CONTROL_BUTTON_COUNT, CONTROL_INDEX_LOWER));
+    muteSoloButtons.addAll(controlFactory.create("Button", MUTE_SOLO_BUTTON_COUNT, MUTE_SOLO_INDEX_LOWER));
+    knobs.addAll(controlFactory.create("Knob", KNOB_COUNT, KNOB_INDEX_LOWER));
+    patternButtons.addAll(controlFactory.create("Button", PATTERN_BUTTON_COUNT, PATTERN_INDEX_LOWER));
+    gridButtons.addAll(controlFactory.create("Button", GRID_BUTTON_COUNT, GRID_INDEX_LOWER));
   }
 
 }

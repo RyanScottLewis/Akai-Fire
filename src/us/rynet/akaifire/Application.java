@@ -96,7 +96,7 @@ public class Application {
     akaiFire.knobs.get(2).addListener(new ColorKnobListener(akaiFire, paintState, 2));
 
     akaiFire.screen.setBitmap(bitmap);
-//    akaiFire.screen.midiSend(controller);
+    // akaiFire.screen.midiSend(controller);
 
     akaiFire.pads.midiSend(controller);
 

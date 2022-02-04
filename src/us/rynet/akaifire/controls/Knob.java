@@ -25,21 +25,13 @@ public class Knob extends Control {
     this.value = value;
   }
 
-  public int getValue() {
-    return value;
-  }
+  public int getValue() { return value; }
 
-  public void setValue(int value) {
-    this.value = value;
-  }
+  public void setValue(int value) { this.value = value; }
 
-  public boolean getUseLargeSteps() {
-    return useLargeSteps;
-  }
+  public boolean getUseLargeSteps() { return useLargeSteps; }
 
-  public void setUseLargeSteps(boolean useLargeSteps) {
-    this.useLargeSteps = useLargeSteps;
-  }
+  public void setUseLargeSteps(boolean useLargeSteps) { this.useLargeSteps = useLargeSteps; }
 
   public void midiChange(int value) {
     if (value <= 63) {
@@ -55,7 +47,8 @@ public class Knob extends Control {
 
   public void increment(int steps) {
     value += steps;
-    if (value > 127) value = 127;
+    if (value > 127)
+      value = 127;
 
     publish();
   }
@@ -66,7 +59,8 @@ public class Knob extends Control {
 
   public void decrement(int steps) {
     value -= steps;
-    if (value < 0) value = 0;
+    if (value < 0)
+      value = 0;
 
     publish();
   }

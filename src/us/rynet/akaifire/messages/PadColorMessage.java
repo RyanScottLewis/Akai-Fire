@@ -43,7 +43,7 @@ public class PadColorMessage {
     int size = padCount * 4;
 
     // Size as two 7-bit fields for MIDI
-    stream.write((byte)(size >> 7));   // High length byte, bits 7 through 13 of following payload
+    stream.write((byte)(size >> 7)); // High length byte, bits 7 through 13 of following payload
     stream.write((byte)(size & 0x7F)); // Low length byte, bits 0 through 7 of following payload
   }
 

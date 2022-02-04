@@ -14,7 +14,7 @@ public class KnobLargeStepListener implements ButtonListener {
 
   public void onPressed(Button button) { // TODO: Doesnt work - Needs onStart and onStop
     for (Knob knob : akaiFire.getKnobs())
-      knob.setUseLargeSteps( button.getPressed() );
+      knob.setUseLargeSteps(button.getPressed());
   }
 
 }

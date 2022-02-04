@@ -8,8 +8,6 @@ public class ApplicationState {
 
   Mode mode = Mode.PAINT;
 
-  public Mode getMode() {
-    return mode;
-  }
+  public Mode getMode() { return mode; }
 
 }

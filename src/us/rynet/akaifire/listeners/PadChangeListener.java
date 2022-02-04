@@ -18,7 +18,7 @@ public class PadChangeListener implements PadListener {
   }
 
   public void onPressed(Pad pad) {
-    pad.setColor( state.getTint() );
+    pad.setColor(state.getTint());
     pad.midiSend(controller);
   }
 

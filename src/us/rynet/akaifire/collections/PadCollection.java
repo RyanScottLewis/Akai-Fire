@@ -22,7 +22,7 @@ public class PadCollection extends ControlCollection<Pad> {
   public void midiSend(MidiController controller) {
     PadColorMessage message = new PadColorMessage();
 
-    controller.send( message.toByteArray(this) );
+    controller.send(message.toByteArray(this));
   }
 
 }
