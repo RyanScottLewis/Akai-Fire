@@ -1,0 +1,79 @@
+#!/usr/bin/env ruby
+
+require 'chunky_png'
+
+CHAR_ZERO  = '░░'
+CHAR_ONE   = '██'
+IMAGE_PATH = File.expand_path( File.join('..', 'data', 'Screen.png'), __dir__ )
+DATA_PATH  = File.expand_path( File.join('..', 'src', 'us', 'rynet', 'akaifire', 'Screen.data'), __dir__ )
+
+# Load image - image must be 128 x 64
+def load_image(path)
+  ChunkyPNG::Image.from_file(path)
+end
+
+# Convert PNG to bit array
+def convert_png_to_bits(image)
+  image.pixels.map do |color|
+    color == 255 ? 0 : 1
+  end
+end
+
+# Convert bit array into byte array
+def convert_bits_to_bytes(bits)
+  bits.each_slice(8).map do |slice|
+    slice.reverse.each.with_index.inject(0) do |memo, (bit, index)|
+      memo |= bit << index
+    end
+
+    # slice.join.to_i(2) # Using String manipulation instead of bit-shifting
+  end
+end
+
+# Print ASCII art representation of byte array
+def print_bits(bits)
+  ascii_image = bits.each_slice(128).map do |slice|
+    slice.join.gsub('0', CHAR_ZERO).gsub('1', CHAR_ONE)
+  end.join("\n")
+
+  puts "Bits:"
+  puts ascii_image
+end
+
+# Print ASCII art representation of byte array
+def print_bytes(bytes)
+  ascii_image = bytes.each_slice(128 / 8).map do |slice|
+    slice.map do |byte|
+      byte.to_s(2).rjust(8, "0").gsub('0', CHAR_ZERO).gsub('1', CHAR_ONE)
+    end.join
+  end.join("\n")
+
+  puts "Bytes:"
+  puts ascii_image
+end
+
+# Print Java code
+def print_java(bits)
+  puts "Java:"
+  print 'byte[] bits = { '
+  print bits.join(', ')
+  print ' };'
+end
+
+# Save the bytes to a file
+def save_data(path, data)
+  File.open(path, "wb") do |io|
+    data = data.pack('C')
+
+    io.write(data)
+  end
+end
+
+image = load_image(IMAGE_PATH)
+bits  = convert_png_to_bits(image)
+# bytes = convert_bits_to_bytes(bits)
+
+print_bits(bits)
+print_bytes(bytes)
+# print_java(bits)
+save_data(bits, DATA_PATH)
