@@ -1,10 +1,10 @@
-JAVA_MAIN           = us.rynet.akaifire.Main
+JAVA_MAIN           = us.rynet.akaifire.Application
 JAVA_SOURCE_PATH    = src
 JAVA_BUILD_PATH     = build
 JAVA_CLASSES_PATH   = $(JAVA_BUILD_PATH)/classes
 JAVA_SOURCES        = $(shell find $(JAVA_SOURCE_PATH) -name *.java)
 JAVA_CLASSES        = $(JAVA_SOURCES:$(JAVA_SOURCE_PATH)/%.java=$(JAVA_CLASSES_PATH)/%.class)
-JAVA_FLAGS          = -cp $(JAVA_SOURCE_PATH)/
+JAVA_FLAGS          = -cp $(JAVA_CLASSES_PATH)/
 JAVA_COMPILER_FLAGS = -d $(JAVA_CLASSES_PATH)/ -cp $(JAVA_SOURCE_PATH)/
 
 .SUFFIXES: .java

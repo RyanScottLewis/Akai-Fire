@@ -3,9 +3,12 @@ package us.rynet.akaifire;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.Receiver;
+import javax.sound.midi.Transmitter;
 
 public class MidiController {
 
+  // TODO: Are these named backwards? Confusing..
   protected MidiDevice inputDevice;
   protected MidiDevice outputDevice;
 
@@ -29,6 +32,18 @@ public class MidiController {
   public void close() {
     inputDevice.close();
     outputDevice.close();
+  }
+
+  public void addReceiver(Receiver receiver) {
+    Transmitter transmitter = null;
+
+    try {
+      transmitter = outputDevice.getTransmitter();
+    } catch (MidiUnavailableException error) {
+      error.printStackTrace();
+    }    
+
+    transmitter.setReceiver(receiver);  
   }
 
   protected MidiDevice.Info[] getMidiDeviceInfos() {
