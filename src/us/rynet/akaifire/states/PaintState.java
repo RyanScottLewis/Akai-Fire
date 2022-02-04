@@ -3,28 +3,20 @@ package us.rynet.akaifire.states;
 public class PaintState {
 
   public enum Mode {
-    DRAW,
-    PREVIEW,
+    DRAW, PREVIEW,
   }
 
-  protected Mode  mode          = Mode.DRAW;
-  protected int   modeChangedAt = 0;
-  protected int[] tint          = { 0, 0, 0 };
+  protected Mode   mode          = Mode.DRAW;
+  protected double modeChangedAt = 0;
+  protected int[]  tint          = { 0, 0, 0 };
 
   public Mode getMode() {
     return mode;
   }
 
   public void setMode(Mode mode) {
-    this.mode = mode;
-  }
-
-  public int getModeChangedAt() {
-    return modeChangedAt;
-  }
-
-  public void setModeChangedAt(int modeChangedAt) {
-    this.modeChangedAt = modeChangedAt;
+    this.mode          = mode;
+    this.modeChangedAt = System.nanoTime();
   }
 
   public int[] getTint() {
@@ -41,6 +33,10 @@ public class PaintState {
 
   public int getTintPartial(int colorIndex) {
     return tint[colorIndex];
+  }
+
+  public double getTimeSinceModeChange() {
+    return (System.nanoTime() - modeChangedAt) / 1e6;
   }
 
 }

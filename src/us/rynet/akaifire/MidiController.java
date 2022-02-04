@@ -1,24 +1,76 @@
 package us.rynet.akaifire;
 
+import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.MetaMessage;
 import javax.sound.midi.MidiDevice;
+import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Receiver;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.SysexMessage;
 import javax.sound.midi.Transmitter;
 
 public class MidiController {
 
-  // TODO: Are these named backwards? Confusing..
-  protected MidiDevice inputDevice;
+  protected MidiDevice inputDevice;           // TODO: Are these named backwards? Confusing..
   protected MidiDevice outputDevice;
+  protected boolean    sendTimestamps = false;
+  protected Receiver   receiver;
 
   public void setup() {
     MidiDevice.Info[] infos = getMidiDeviceInfos();
 
     findDevices(infos);
+
+    try {
+      receiver = inputDevice.getReceiver();
+    } catch (MidiUnavailableException error) {
+      error.printStackTrace();
+    }
   }
 
-  public void send(byte[] data) {} // TODO
+  public void send(byte[] data) { // Ripped from TheMidiBus
+    if ((int) ((byte) data[0] & 0xFF) == MetaMessage.META) {
+      MetaMessage message = new MetaMessage();
+      try {
+        byte[] payload = new byte[data.length - 2];
+        System.arraycopy(data, 2, payload, 0, data.length - 2);
+        message.setMessage((int) ((byte) data[1] & 0xFF), payload, data.length - 2);
+        sendMessage(message);
+      } catch (InvalidMidiDataException e) {
+        System.err.println("\nThe MidiBus Warning: Message not sent, invalid MIDI data");
+      }
+    } else if ((int) ((byte) data[0] & 0xFF) == SysexMessage.SYSTEM_EXCLUSIVE || (int) ((byte) data[0] & 0xFF) == SysexMessage.SPECIAL_SYSTEM_EXCLUSIVE) {
+      SysexMessage message = new SysexMessage();
+      try {
+        message.setMessage(data, data.length);
+        sendMessage(message);
+      } catch (InvalidMidiDataException e) {
+        System.err.println("\nThe MidiBus Warning: Message not sent, invalid MIDI data");
+      }
+    } else {
+      ShortMessage message = new ShortMessage();
+      try {
+        if (data.length > 2)
+          message.setMessage((int) ((byte) data[0] & 0xFF), (int) ((byte) data[1] & 0xFF), (int) ((byte) data[2] & 0xFF));
+        else if (data.length > 1)
+          message.setMessage((int) ((byte) data[0] & 0xFF), (int) ((byte) data[1] & 0xFF), 0);
+        else
+          message.setMessage((int) ((byte) data[0] & 0xFF));
+        sendMessage(message);
+      } catch (InvalidMidiDataException e) {
+        System.err.println("\nThe MidiBus Warning: Message not sent, invalid MIDI data");
+      }
+    }
+  }
+
+  public synchronized void sendMessage(MidiMessage message) {
+    if (sendTimestamps)
+      receiver.send(message, System.currentTimeMillis());
+    else
+      receiver.send(message, 0);
+  }
 
   public void open() {
     try {
@@ -41,9 +93,9 @@ public class MidiController {
       transmitter = outputDevice.getTransmitter();
     } catch (MidiUnavailableException error) {
       error.printStackTrace();
-    }    
+    }
 
-    transmitter.setReceiver(receiver);  
+    transmitter.setReceiver(receiver);
   }
 
   protected MidiDevice.Info[] getMidiDeviceInfos() {
@@ -59,7 +111,7 @@ public class MidiController {
 
   protected void findDevices(MidiDevice.Info[] infos) {
     for (MidiDevice.Info info : infos) {
-      if ( info.getName().equals(AkaiFire.DEVICE_NAME) ) {
+      if (info.getName().equals(AkaiFire.DEVICE_NAME)) {
         MidiDevice device = getMidiDevice(info);
 
         assignDeviceToController(device);
