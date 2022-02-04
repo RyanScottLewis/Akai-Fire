@@ -74,6 +74,30 @@ public class Application {
     controller.open();
   }
 
+  protected void showImage() {
+    akaiFire.screen.setBitmap(bitmap);
+    akaiFire.screen.midiSend(controller);
+  }
+
+  protected void showGrid() {
+    for (int x = 0; x < 128; x++) {
+      for (int y = 0; y < 64; y++) {
+        if (x % 4 == 0 && y % 4 == 0)
+          akaiFire.screen.plotPixel(x, y, 1);
+      }
+    }
+
+    akaiFire.screen.midiSend(controller);
+  }
+
+  protected void sleep() {
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException error) {
+      error.printStackTrace();
+    }
+  }
+
   protected void setupAkai() {
     akaiFire         = new AkaiFire();
     applicationState = new ApplicationState();
@@ -94,10 +118,12 @@ public class Application {
     akaiFire.knobs.get(1).addListener(new ColorKnobListener(akaiFire, paintState, 1));
     akaiFire.knobs.get(2).addListener(new ColorKnobListener(akaiFire, paintState, 2));
 
-    akaiFire.screen.setBitmap(bitmap);
-    akaiFire.screen.midiSend(controller);
-
+    // Update pads
     akaiFire.pads.midiSend(controller);
+
+    // showGrid();
+    // sleep();
+    // showImage();
 
     paintMode = paintState.getMode();
   }
@@ -117,7 +143,8 @@ public class Application {
   protected void update() {
     if (applicationState.getMode() == ApplicationState.Mode.PAINT) {
 
-      if (paintState.getMode() != paintMode) { // Paint mode was changed
+      // Paint mode was changed
+      if (paintState.getMode() != paintMode) {
         paintMode = paintState.getMode();
 
         if (paintState.getMode() == PaintState.Mode.DRAW) {
@@ -127,7 +154,9 @@ public class Application {
         }
       }
 
+      // Paint mode tick
       if (paintState.getMode() == PaintState.Mode.DRAW) {
+        // Do nothing
       } else if (paintState.getMode() == PaintState.Mode.PREVIEW) {
 
         for (Pad pad : akaiFireBuffer.pads)
@@ -135,7 +164,7 @@ public class Application {
 
         akaiFireBuffer.pads.midiSend(controller);
 
-        if (paintState.getTimeSinceModeChange() >= 500)
+        if (paintState.getTimeSinceModeChange() >= 500) // TODO: Magic number
           paintState.setMode(PaintState.Mode.DRAW);
 
       }
