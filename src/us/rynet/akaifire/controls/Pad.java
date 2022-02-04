@@ -8,9 +8,9 @@ import us.rynet.akaifire.messages.PadColorMessage;
 
 public class Pad extends Button {
 
-  protected int red   = 0; // 0-127
-  protected int green = 0; // 0-127
-  protected int blue  = 0; // 0-127
+  private int red   = 0; // 0-127
+  private int green = 0; // 0-127
+  private int blue  = 0; // 0-127
 
   public Pad() {
     super();
@@ -30,24 +30,36 @@ public class Pad extends Button {
     return red;
   }
 
+  public void setRed(int red) {
+    this.red = red;
+  }
+
   public int getGreen() {
     return green;
+  }
+
+  public void setGreen(int green) {
+    this.green = green;
   }
 
   public int getBlue() {
     return blue;
   }
 
+  public void setBlue(int blue) {
+    this.blue = blue;
+  }
+
   public void setColor(int red, int green, int blue) {
-    this.red   = red;
-    this.green = green;
-    this.blue  = blue;
+    this.setRed(red);
+    this.setGreen(green);
+    this.setBlue(blue);
   }
 
   public void setColor(int[] rgb) {
-    this.red   = rgb[0];
-    this.green = rgb[1];
-    this.blue  = rgb[2];
+    this.setRed(rgb[0]);
+    this.setGreen(rgb[1]);
+    this.setBlue(rgb[2]);
   }
 
   public void midiSend(MidiController controller) {
@@ -59,7 +71,7 @@ public class Pad extends Button {
   public byte[] toByteArray() {
     int controlNumber = index - AkaiFire.PAD_INDEX_LOWER;
 
-    return new byte[] { (byte)controlNumber, (byte)red, (byte)green, (byte)blue };
+    return new byte[] { (byte)controlNumber, (byte)getRed(), (byte)getGreen(), (byte)getBlue() };
   }
 
   protected void publish() {

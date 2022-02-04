@@ -10,6 +10,8 @@ public class ControlFactory {
     this.controls = controls;
   }
 
+  // TODO: Fix... whatever this is? Unchecked... huh?
+  @SuppressWarnings("unchecked")
   public <T extends Control> T create(String type, int controlNumber) {
     Control result = null;
 

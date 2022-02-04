@@ -7,6 +7,8 @@ import us.rynet.akaifire.messages.PadColorMessage;
 
 public class PadCollection extends ControlCollection<Pad> {
 
+  private static final long serialVersionUID = -5375387472893488160L;
+
   public Pad getAtCoordinates(int row, int column) {
     int index = row + (AkaiFire.PAD_COLUMN_COUNT * column);
 

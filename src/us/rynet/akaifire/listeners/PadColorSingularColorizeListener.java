@@ -19,10 +19,10 @@ public class PadColorSingularColorizeListener implements ButtonListener {
   }
 
   public void onPressed(Button button) {
-    for (Pad pad : akaiFire.pads)
+    for (Pad pad : akaiFire.getPads())
       pad.setColor( state.getTint() );
 
-    akaiFire.pads.midiSend(controller);
+    akaiFire.getPads().midiSend(controller);
   }
 
 }

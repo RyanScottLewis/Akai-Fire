@@ -57,6 +57,14 @@ public class AkaiFire {
     setupControls();
   }
 
+  public ArrayList<Control> getControls() {
+    return controls;
+  }
+
+  public void setControls(ArrayList<Control> controls) {
+    this.controls = controls;
+  }
+
   public Screen           getScreen()           { return screen; }
   public PadCollection    getPads()             { return pads; }
   public ButtonCollection getTransportButtons() { return transportButtons; }
@@ -71,7 +79,7 @@ public class AkaiFire {
   public ButtonCollection getGridButtons()      { return gridButtons; }
 
   protected void setupControls() {
-    ControlFactory controlFactory = new ControlFactory(controls);
+    ControlFactory controlFactory = new ControlFactory(getControls());
 
     modeButton    = controlFactory.create("Button", MODE_INDEX);
     browserButton = controlFactory.create("Button", BROWSER_INDEX);

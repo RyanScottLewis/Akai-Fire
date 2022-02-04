@@ -16,10 +16,10 @@ public class ClearListener implements ButtonListener {
   }
 
   public void onPressed(Button button) {
-    for (Pad pad : akaiFire.pads)
+    for (Pad pad : akaiFire.getPads())
       pad.setColor(0, 0, 0);
 
-    akaiFire.pads.midiSend(controller);
+    akaiFire.getPads().midiSend(controller);
   }
 
 }

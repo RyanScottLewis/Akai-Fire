@@ -16,13 +16,13 @@ public class InvertListener implements ButtonListener {
   }
 
   public void onPressed(Button button) {
-    for (Pad pad : akaiFire.pads) {
-      pad.red   = 127 - pad.red;
-      pad.green = 127 - pad.green;
-      pad.blue  = 127 - pad.blue;
+    for (Pad pad : akaiFire.getPads()) {
+      pad.setRed(127 - pad.getRed());
+      pad.setGreen(127 - pad.getGreen());
+      pad.setBlue(127 - pad.getBlue());
     }
 
-    akaiFire.pads.midiSend(controller);
+    akaiFire.getPads().midiSend(controller);
   }
 
 }
