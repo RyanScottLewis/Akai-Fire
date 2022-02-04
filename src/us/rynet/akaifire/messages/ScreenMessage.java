@@ -19,7 +19,14 @@ public class ScreenMessage {
     writeData(stream, screenBitmap);
     writeFooter(stream);
 
-    return stream.toByteArray();
+    byte[] data = stream.toByteArray();
+
+    System.out.println(this.getClass().getName() + ":");
+    for (int j = 0; j < data.length; j++)
+      System.out.format("%02X ", data[j]);
+    System.out.println();
+
+    return data;
   }
 
   protected void writeHeader(ByteArrayOutputStream stream) {
@@ -39,7 +46,7 @@ public class ScreenMessage {
   protected void writeBitmapHeader(ByteArrayOutputStream stream) {
     stream.write((byte)0x00); // Start 8-pixel band of update
     stream.write((byte)0x07); // End 8-pixel band of update (here, 8 bands of 8 pixels, i.e. the whole display)
-    stream.write((byte)0x00); // Start colum of update
+    stream.write((byte)0x00); // Start column of update
     stream.write((byte)0x7F); // End column of update
   }
 
