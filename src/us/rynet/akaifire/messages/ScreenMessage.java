@@ -11,7 +11,7 @@ public class ScreenMessage {
   public byte[] toByteArray(Screen screen) {
     stream.reset();
 
-    int[] screenBitmap = screen.getBitmap();
+    byte[] screenBitmap = screen.getBitmap();
 
     writeHeader(stream);
     writeSize(stream, screenBitmap.length + 4);
@@ -43,7 +43,7 @@ public class ScreenMessage {
     stream.write((byte)0x7F); // End column of update
   }
 
-  protected void writeData(ByteArrayOutputStream stream, int[] bitmap) {
+  protected void writeData(ByteArrayOutputStream stream, byte[] bitmap) {
     for (int pixel : bitmap)
       stream.write(pixel);
   }

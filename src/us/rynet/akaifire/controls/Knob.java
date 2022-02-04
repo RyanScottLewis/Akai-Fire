@@ -8,7 +8,7 @@ public class Knob extends Control {
   public int STEP_NORMAL = 1;
   public int STEP_LARGE  = 5;
 
-  protected int     value         = 0;
+  protected byte    value         = 0;
   protected boolean useLargeSteps = false;
 
   public Knob() {
@@ -19,21 +19,21 @@ public class Knob extends Control {
     super(index);
   }
 
-  public Knob(int index, int value) {
+  public Knob(int index, byte value) {
     super(index);
 
     this.value = value;
   }
 
-  public int getValue() { return value; }
+  public byte getValue() { return value; }
 
-  public void setValue(int value) { this.value = value; }
+  public void setValue(byte value) { this.value = value; }
 
   public boolean getUseLargeSteps() { return useLargeSteps; }
 
   public void setUseLargeSteps(boolean useLargeSteps) { this.useLargeSteps = useLargeSteps; }
 
-  public void midiChange(int value) {
+  public void midiChange(byte value) {
     if (value <= 63) {
       increment();
     } else {

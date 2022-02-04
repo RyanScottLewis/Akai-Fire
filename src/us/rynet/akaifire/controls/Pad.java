@@ -44,7 +44,7 @@ public class Pad extends Button {
     this.setBlue(blue);
   }
 
-  public void setColor(int[] rgb) {
+  public void setColor(byte[] rgb) {
     this.setRed(rgb[0]);
     this.setGreen(rgb[1]);
     this.setBlue(rgb[2]);
