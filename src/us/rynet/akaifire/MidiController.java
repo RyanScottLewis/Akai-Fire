@@ -33,34 +33,41 @@ public class MidiController {
   public void send(byte[] data) { // Ripped from TheMidiBus
     if ((int)((byte)data[0] & 0xFF) == MetaMessage.META) {
       MetaMessage message = new MetaMessage();
+
       try {
         byte[] payload = new byte[data.length - 2];
         System.arraycopy(data, 2, payload, 0, data.length - 2);
         message.setMessage((int)((byte)data[1] & 0xFF), payload, data.length - 2);
+
         sendMessage(message);
       } catch (InvalidMidiDataException e) {
         System.err.println("\nThe MidiBus Warning: Message not sent, invalid MIDI data");
       }
     } else if ((int)((byte)data[0] & 0xFF) == SysexMessage.SYSTEM_EXCLUSIVE || (int)((byte)data[0] & 0xFF) == SysexMessage.SPECIAL_SYSTEM_EXCLUSIVE) {
       SysexMessage message = new SysexMessage();
+
       try {
         message.setMessage(data, data.length);
+
         sendMessage(message);
       } catch (InvalidMidiDataException e) {
-        System.err.println("\nThe MidiBus Warning: Message not sent, invalid MIDI data");
+        System.err.println("Message not sent, invalid MIDI data");
       }
     } else {
       ShortMessage message = new ShortMessage();
+
       try {
-        if (data.length > 2)
+        if (data.length > 2) {
           message.setMessage((int)((byte)data[0] & 0xFF), (int)((byte)data[1] & 0xFF), (int)((byte)data[2] & 0xFF));
-        else if (data.length > 1)
+        } else if (data.length > 1) {
           message.setMessage((int)((byte)data[0] & 0xFF), (int)((byte)data[1] & 0xFF), 0);
-        else
+        } else {
           message.setMessage((int)((byte)data[0] & 0xFF));
+        }
+
         sendMessage(message);
       } catch (InvalidMidiDataException e) {
-        System.err.println("\nThe MidiBus Warning: Message not sent, invalid MIDI data");
+        System.err.println("Message not sent, invalid MIDI data");
       }
     }
   }
