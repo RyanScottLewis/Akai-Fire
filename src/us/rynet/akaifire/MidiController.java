@@ -39,7 +39,7 @@ public class MidiController {
         System.arraycopy(data, 2, payload, 0, data.length - 2);
         message.setMessage((int)((byte)data[1] & 0xFF), payload, data.length - 2);
 
-        sendMessage(message);
+        send(message);
       } catch (InvalidMidiDataException e) {
         System.err.println("Message not sent, invalid MIDI data");
       }
@@ -49,7 +49,7 @@ public class MidiController {
       try {
         message.setMessage(data, data.length);
 
-        sendMessage(message);
+        send(message);
       } catch (InvalidMidiDataException e) {
         System.err.println("Message not sent, invalid MIDI data");
       }
@@ -65,18 +65,18 @@ public class MidiController {
           message.setMessage((int)((byte)data[0] & 0xFF));
         }
 
-        sendMessage(message);
+        send(message);
       } catch (InvalidMidiDataException e) {
         System.err.println("Message not sent, invalid MIDI data");
       }
     }
   }
 
-  public synchronized void sendMessage(MidiMessage message) {
+  public synchronized void send(MidiMessage message) {
     if (sendTimestamps)
       receiver.send(message, System.currentTimeMillis());
     else
-      receiver.send(message, 0);
+      receiver.send(message, -1);
   }
 
   public void open() {
