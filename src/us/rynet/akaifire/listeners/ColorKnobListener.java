@@ -14,7 +14,7 @@ public class ColorKnobListener implements KnobListener { // TODO Rename to Color
 
   public void onChange(Knob knob) {
     state.setTintPartial(colorIndex, knob.value);
-    state.setMode(PaintMode.PREVIEW);
+    state.setMode(PaintState.Mode.PREVIEW);
     state.setModeChangedAt( millis() ); // TODO: I hate that this is here
   }
 

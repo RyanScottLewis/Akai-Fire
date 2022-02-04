@@ -3,8 +3,6 @@ package us.rynet.akaifire;
 import javax.sound.midi.MidiDevice;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.Receiver;
-import javax.sound.midi.Transmitter;
 
 public class MidiController {
 
@@ -12,12 +10,8 @@ public class MidiController {
     setupDevices();
   }
 
-  protected MidiDevice receiver;
-  protected MidiDevice transmitter;
-
-  public MidiDevice getReceiver() { return receiver; }
-
-  public MidiDevice getTransmitter() { return transmitter; }
+  protected MidiDevice inputDevice;
+  protected MidiDevice outputDevice;
 
   public void setup() {
     MidiDevice.Info[] infos = getMidiDeviceInfos();
@@ -27,16 +21,16 @@ public class MidiController {
 
   public void open() {
     try {
-      receiver.open();
-      transmitter.open();
+      inputDevice.open();
+      outputDevice.open();
     } catch (MidiUnavailableException error) {
-      System.err.println("Can't open MIDI device");
+      System.err.println("Cannot open MIDI device");
     }
   }
 
   public void close() {
-    receiver.close();
-    transmitter.close();
+    inputDevice.close();
+    outputDevice.close();
   }
 
   protected MidiDevice.Info[] getMidiDeviceInfos() {
@@ -66,7 +60,7 @@ public class MidiController {
     try {
       device = MidiSystem.getMidiDevice(info);
     } catch (MidiUnavailableException error) {
-      System.err.println("Can't get MIDI device");
+      System.err.println("Cannot get MIDI device");
     }
 
     return device;
@@ -74,9 +68,9 @@ public class MidiController {
 
   protected void assignDeviceToController(MidiDevice device) {
     if (device.getMaxReceivers() != 0) {
-      receiver = device;
+      inputDevice = device;
     } else if (device.getMaxTransmitters() != 0) {
-      transmitter = device;
+      outputDevice = device;
     }
   }
 

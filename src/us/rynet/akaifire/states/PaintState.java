@@ -1,21 +1,21 @@
 package us.rynet.akaifire;
 
-public enum PaintMode { // TODO: Rename tp Mode and put in class after converting to straight Java
-  DRAW,
-  PREVIEW,
-}
-
 public class PaintState {
 
-  protected PaintMode mode          = PaintMode.DRAW;
-  protected int       modeChangedAt = 0;
-  protected int[]     tint          = { 0, 0, 0 };
+  public enum Mode {
+    DRAW,
+    PREVIEW,
+  }
 
-  public PaintMode getMode() {
+  protected Mode  mode          = Mode.DRAW;
+  protected int   modeChangedAt = 0;
+  protected int[] tint          = { 0, 0, 0 };
+
+  public Mode getMode() {
     return mode;
   }
 
-  public void setMode(PaintMode mode) {
+  public void setMode(Mode mode) {
     this.mode = mode;
   }
 
