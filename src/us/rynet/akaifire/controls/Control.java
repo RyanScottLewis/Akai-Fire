@@ -1,6 +1,8 @@
-package us.rynet.akaifire;
+package us.rynet.akaifire.controls;
 
 import java.util.ArrayList;
+
+import us.rynet.akaifire.listeners.ControlListener;
 
 public abstract class Control {
 

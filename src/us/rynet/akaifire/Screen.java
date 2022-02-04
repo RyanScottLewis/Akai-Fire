@@ -1,5 +1,7 @@
 package us.rynet.akaifire;
 
+import us.rynet.akaifire.messages.ScreenMessage;
+
 public class Screen {
 
   public int[][] BIT_MUTATE = {

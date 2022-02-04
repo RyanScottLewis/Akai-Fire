@@ -2,6 +2,8 @@ package us.rynet.akaifire;
 
 import java.util.ArrayList;
 
+import us.rynet.akaifire.controls.ControlFactory;
+
 // TODO: Rename to simply Device
 public class AkaiFire {
 

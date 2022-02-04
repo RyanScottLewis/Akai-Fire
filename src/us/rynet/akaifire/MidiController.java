@@ -6,10 +6,6 @@ import javax.sound.midi.MidiUnavailableException;
 
 public class MidiController {
 
-  public MidiController() {
-    setupDevices();
-  }
-
   protected MidiDevice inputDevice;
   protected MidiDevice outputDevice;
 
@@ -18,6 +14,8 @@ public class MidiController {
 
     findDevices(infos);
   }
+
+  public void send(byte[] data) {} // TODO
 
   public void open() {
     try {

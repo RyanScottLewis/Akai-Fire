@@ -1,4 +1,4 @@
-package us.rynet.akaifire;
+package us.rynet.akaifire.states;
 
 public class ApplicationState {
 

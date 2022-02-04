@@ -1,4 +1,7 @@
-package us.rynet.akaifire;
+package us.rynet.akaifire.controls;
+
+import us.rynet.akaifire.listeners.ControlListener;
+import us.rynet.akaifire.listeners.KnobListener;
 
 public class Knob extends Control {
 

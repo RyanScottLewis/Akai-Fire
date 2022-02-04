@@ -1,4 +1,4 @@
-package us.rynet.akaifire;
+package us.rynet.akaifire.listeners;
 
 public interface ControlListener {
 }

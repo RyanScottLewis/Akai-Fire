@@ -1,15 +1,8 @@
-package us.rynet.akaifire;
+package us.rynet.akaifire.receivers;
 
-import themidibus.StandardMidiListener;
-import javax.sound.midi.MidiMessage;
+public class ControlChangeMidiReceiver extends MidiReceiver {
 
-public class ControlChangeMidiListener extends AkaiMidiListener implements StandardMidiListener {
-
-  public ControlChangeMidiListener(AkaiFire akaiFire) {
-    super(akaiFire);
-  }
-
-  public void midiMessage(MidiMessage message, long timeStamp) {
+  public void send(MidiMessage message, long timeStamp) {
     int status        = message.getStatus();
     int controlNumber = (int)(message.getMessage()[1] & 0xFF);
     int value         = (int)(message.getMessage()[2] & 0xFF);
@@ -24,5 +17,7 @@ public class ControlChangeMidiListener extends AkaiMidiListener implements Stand
         forEach(control -> ((Knob)control).midiChange(value));
     }
   }
+
+  public void close() {}
 
 }

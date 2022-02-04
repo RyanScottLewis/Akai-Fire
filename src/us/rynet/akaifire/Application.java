@@ -1,11 +1,11 @@
 package us.rynet.akaifire;
 
-public class Main {
+public class Application {
 
   protected MidiController controller;
 
   public static void main(String[] args) {
-    new Main().run();
+    new Application().run();
   }
 
   public Main() {

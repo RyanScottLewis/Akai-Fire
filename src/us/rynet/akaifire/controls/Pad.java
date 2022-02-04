@@ -1,4 +1,9 @@
-package us.rynet.akaifire;
+package us.rynet.akaifire.controls;
+
+import us.rynet.akaifire.AkaiFire;
+import us.rynet.akaifire.listeners.PadListener;
+import us.rynet.akaifire.listeners.ControlListener;
+import us.rynet.akaifire.messages.PadColorMessage;
 
 public class Pad extends Button {
 

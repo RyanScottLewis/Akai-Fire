@@ -1,4 +1,6 @@
-package us.rynet.akaifire;
+package us.rynet.akaifire.collections;
+
+import us.rynet.akaifire.controls.Pad;
 
 public class PadCollection extends ControlCollection<Pad> {
 
