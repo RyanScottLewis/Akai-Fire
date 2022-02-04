@@ -18,7 +18,8 @@ public class ControlChangeReceiver extends MidiReceiver {
     byte value         = (byte)(message.getMessage()[2] & 0xFF);
 
     if (status == AkaiFire.CONTROL_START || status == AkaiFire.CONTROL_STOP) {
-      akaiFire.getControls().stream().filter(control -> (control instanceof Button) && control.getIndex() == controlNumber).forEach(control -> ((Button)control).setPressed(status == AkaiFire.CONTROL_START)); // TODO: Should be ALL controls - rename setPressed to isChanging or something
+      // TODO: Should be ALL controls - rename setPressed to isChanging or something
+      akaiFire.getControls().stream().filter(control -> (control instanceof Button) && control.getIndex() == controlNumber).forEach(control -> ((Button)control).setPressed(status == AkaiFire.CONTROL_START));
     } else if (status == AkaiFire.KNOB_CHANGED) {
       akaiFire.getControls().stream().filter(control -> (control instanceof Knob) && control.getIndex() == controlNumber).forEach(control -> ((Knob)control).midiChange(value));
     }
