@@ -20,3 +20,5 @@
       * Move `invert` from button to filter
 * Rename Listener to ControlListener
 * All control listeners should have onStart and onStop and use an abstract class or something...
+
+* Knob values are overflowing due to being a byte now, therefore they need guards for the min/max for bytes... also get signs

@@ -47,6 +47,7 @@ public class Knob extends Control {
 
   public void increment(int steps) {
     value += steps;
+
     if (value > 127)
       value = 127;
 
@@ -59,6 +60,7 @@ public class Knob extends Control {
 
   public void decrement(int steps) {
     value -= steps;
+
     if (value < 0)
       value = 0;
 
