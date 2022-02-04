@@ -8,15 +8,15 @@ public class Application {
     new Application().run();
   }
 
-  public Main() {
+  public Application() {
     controller = new MidiController();
   }
 
   protected void run() {
     controller.setup();
 
-    System.out.println( controller.getReceiver() );
-    System.out.println( controller.getTransmitter() );
+    // System.out.println( controller.getReceiver() );
+    // System.out.println( controller.getTransmitter() );
 
   }
 

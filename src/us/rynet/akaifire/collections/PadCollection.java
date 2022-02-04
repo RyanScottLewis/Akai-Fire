@@ -1,6 +1,9 @@
 package us.rynet.akaifire.collections;
 
+import us.rynet.akaifire.AkaiFire;
+import us.rynet.akaifire.MidiController;
 import us.rynet.akaifire.controls.Pad;
+import us.rynet.akaifire.messages.PadColorMessage;
 
 public class PadCollection extends ControlCollection<Pad> {
 

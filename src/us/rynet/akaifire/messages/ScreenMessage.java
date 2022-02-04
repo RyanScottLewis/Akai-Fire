@@ -2,6 +2,8 @@ package us.rynet.akaifire.messages;
 
 import java.io.ByteArrayOutputStream;
 
+import us.rynet.akaifire.Screen;
+
 public class ScreenMessage {
 
   protected ByteArrayOutputStream stream = new ByteArrayOutputStream();

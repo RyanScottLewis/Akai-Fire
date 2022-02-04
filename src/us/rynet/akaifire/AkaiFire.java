@@ -2,7 +2,13 @@ package us.rynet.akaifire;
 
 import java.util.ArrayList;
 
+import us.rynet.akaifire.collections.ButtonCollection;
+import us.rynet.akaifire.collections.KnobCollection;
+import us.rynet.akaifire.collections.PadCollection;
+import us.rynet.akaifire.controls.Button;
+import us.rynet.akaifire.controls.Control;
 import us.rynet.akaifire.controls.ControlFactory;
+import us.rynet.akaifire.controls.Knob;
 
 // TODO: Rename to simply Device
 public class AkaiFire {

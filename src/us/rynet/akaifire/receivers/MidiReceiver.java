@@ -1,7 +1,8 @@
 package us.rynet.akaifire.receivers;
 
-import javax.sound.midi.MidiMessage;
 import javax.sound.midi.Receiver;
+
+import us.rynet.akaifire.AkaiFire;
 
 public abstract class MidiReceiver implements Receiver {
 

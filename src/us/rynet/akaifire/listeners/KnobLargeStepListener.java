@@ -1,5 +1,9 @@
 package us.rynet.akaifire.listeners;
 
+import us.rynet.akaifire.AkaiFire;
+import us.rynet.akaifire.controls.Button;
+import us.rynet.akaifire.controls.Knob;
+
 public class KnobLargeStepListener implements ButtonListener {
 
   protected AkaiFire akaiFire;

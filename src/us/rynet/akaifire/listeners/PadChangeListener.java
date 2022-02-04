@@ -1,4 +1,9 @@
-package us.rynet.akaifire;
+package us.rynet.akaifire.listeners;
+
+import us.rynet.akaifire.AkaiFire;
+import us.rynet.akaifire.MidiController;
+import us.rynet.akaifire.controls.Pad;
+import us.rynet.akaifire.states.PaintState;
 
 public class PadChangeListener implements PadListener {
 

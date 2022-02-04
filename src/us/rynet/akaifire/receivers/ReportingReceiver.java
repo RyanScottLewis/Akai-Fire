@@ -1,5 +1,7 @@
 package us.rynet.akaifire.receivers;
 
+import javax.sound.midi.MidiMessage;
+
 public class ReportingReceiver extends MidiReceiver {
 
   public void send(MidiMessage message, long timeStamp) {

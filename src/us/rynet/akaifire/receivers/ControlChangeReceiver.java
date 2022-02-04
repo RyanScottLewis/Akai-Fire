@@ -1,6 +1,12 @@
 package us.rynet.akaifire.receivers;
 
-public class ControlChangeMidiReceiver extends MidiReceiver {
+import javax.sound.midi.MidiMessage;
+
+import us.rynet.akaifire.AkaiFire;
+import us.rynet.akaifire.controls.Button;
+import us.rynet.akaifire.controls.Knob;
+
+public class ControlChangeReceiver extends MidiReceiver {
 
   public void send(MidiMessage message, long timeStamp) {
     int status        = message.getStatus();

@@ -1,5 +1,9 @@
 package us.rynet.akaifire.listeners;
 
+import us.rynet.akaifire.AkaiFire;
+import us.rynet.akaifire.controls.Knob;
+import us.rynet.akaifire.states.PaintState;
+
 public class ColorKnobListener implements KnobListener { // TODO Rename to ColorPartial
 
   protected AkaiFire   akaiFire;

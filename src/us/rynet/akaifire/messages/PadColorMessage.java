@@ -2,6 +2,9 @@ package us.rynet.akaifire.messages;
 
 import java.io.ByteArrayOutputStream;
 
+import us.rynet.akaifire.collections.PadCollection;
+import us.rynet.akaifire.controls.Pad;
+
 public class PadColorMessage {
 
   protected ByteArrayOutputStream stream = new ByteArrayOutputStream();
