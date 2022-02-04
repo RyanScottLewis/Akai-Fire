@@ -2,12 +2,12 @@ package us.rynet.akaifire;
 
 public class InvertListener implements ButtonListener {
 
-  protected AkaiFire akaiFire;
-  protected MidiBus  midiBus;
+  protected AkaiFire       akaiFire;
+  protected MidiController controller;
 
-  public InvertListener(AkaiFire akaiFire, MidiBus midiBus) {
-    this.akaiFire = akaiFire;
-    this.midiBus  = midiBus;
+  public InvertListener(AkaiFire akaiFire, MidiController controller) {
+    this.akaiFire   = akaiFire;
+    this.controller = controller;
   }
 
   public void onPressed(Button button) {
@@ -17,7 +17,7 @@ public class InvertListener implements ButtonListener {
       pad.blue  = 127 - pad.blue;
     }
 
-    akaiFire.pads.midiSend(midiBus);
+    akaiFire.pads.midiSend(controller);
   }
 
 }

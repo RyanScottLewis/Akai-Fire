@@ -1,5 +1,7 @@
 package us.rynet.akaifire;
 
+import java.util.ArrayList;
+
 public abstract class Control {
 
   protected int                        index     = 0; // TODO: Rename to controlNumber

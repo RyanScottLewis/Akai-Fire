@@ -12,10 +12,10 @@ public class PadCollection extends ControlCollection<Pad> {
     return get(controlIndex - AkaiFire.PAD_INDEX_LOWER);
   }
 
-  public void midiSend(MidiBus midiBus) {
+  public void midiSend(MidiController controller) {
     PadColorMessage message = new PadColorMessage();
 
-    midiBus.sendMessage( message.toByteArray(this) );
+    controller.send( message.toByteArray(this) );
   }
 
 }

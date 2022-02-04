@@ -44,10 +44,10 @@ public class Pad extends Button {
     this.blue  = rgb[2];
   }
 
-  public void midiSend(MidiBus midiBus) {
+  public void midiSend(MidiController controller) {
     PadColorMessage message = new PadColorMessage();
 
-    midiBus.sendMessage( message.toByteArray(this) );
+    controller.send( message.toByteArray(this) );
   }
 
   public byte[] toByteArray() {

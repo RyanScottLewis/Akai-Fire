@@ -49,10 +49,10 @@ public class Screen {
     }
   }
 
-  public void midiSend(MidiBus midiBus) {
+  public void midiSend(MidiController controller) {
     ScreenMessage message = new ScreenMessage();
 
-    midiBus.sendMessage( message.toByteArray(this) );
+    controller.send( message.toByteArray(this) );
   }
 
 

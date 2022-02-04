@@ -1,5 +1,7 @@
 package us.rynet.akaifire;
 
+import java.util.ArrayList;
+
 public class ControlFactory {
 
   protected ArrayList<Control> controls = new ArrayList<Control>();
