@@ -53,8 +53,16 @@ public class WindowPanel extends JPanel {
       public void stateChanged(ChangeEvent e) {
         Color color = colorChooser.getColor();
 
-        byte[] rgb = { (byte)(color.getRed() / 2), (byte)(color.getGreen() / 2), (byte)(color.getBlue() / 2) };
+        byte   red   = (byte)(color.getRed() / 2);
+        byte   green = (byte)(color.getGreen() / 2);
+        byte   blue  = (byte)(color.getBlue() / 2);
+        byte[] rgb   = { red, green, blue };
+
         application.getPaintState().setColor(rgb);
+
+        application.getAkaiFire().knobs.get(0).setValue(red);
+        application.getAkaiFire().knobs.get(1).setValue(green);
+        application.getAkaiFire().knobs.get(2).setValue(blue);
 
         application.sendPads();
       }

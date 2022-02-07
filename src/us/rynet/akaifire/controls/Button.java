@@ -20,8 +20,7 @@ public class Button extends Control {
 
   public boolean setPressed(boolean value) {
     pressed = value;
-    if (!pressed)
-      publish();
+    if (!pressed) publish();
 
     return pressed;
   }

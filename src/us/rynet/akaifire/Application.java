@@ -1,5 +1,6 @@
 package us.rynet.akaifire;
 
+import javax.swing.JColorChooser;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -90,10 +91,8 @@ public class Application {
 
     for (int x = 0; x < 128; x++) {
       for (int y = 0; y < 64; y++) {
-        if (x % gridSize == 0 && y % gridSize == 0)
-          akaiFire.screen.plotPixel(x, y, 1);
-        else
-          akaiFire.screen.plotPixel(x, y, 0);
+        if (x % gridSize == 0 && y % gridSize == 0) akaiFire.screen.plotPixel(x, y, 1);
+        else akaiFire.screen.plotPixel(x, y, 0);
       }
     }
 
@@ -132,15 +131,16 @@ public class Application {
     akaiFire.controlButtons.get(2).addListener(new PadColorSingularColorizeListener(akaiFire, midiController, paintState));
     akaiFire.controlButtons.get(4).addListener(new KnobLargeStepListener(akaiFire));
 
-    akaiFire.knobs.get(0).addListener(new ColorKnobListener(akaiFire, paintState, 0, windowPanel.getColorChooser()));
-    akaiFire.knobs.get(1).addListener(new ColorKnobListener(akaiFire, paintState, 1, windowPanel.getColorChooser()));
-    akaiFire.knobs.get(2).addListener(new ColorKnobListener(akaiFire, paintState, 2, windowPanel.getColorChooser()));
+    JColorChooser colorChooser = windowPanel.getColorChooser();
+    akaiFire.knobs.get(0).addListener(new ColorKnobListener(akaiFire, paintState, 0, colorChooser));
+    akaiFire.knobs.get(1).addListener(new ColorKnobListener(akaiFire, paintState, 1, colorChooser));
+    akaiFire.knobs.get(2).addListener(new ColorKnobListener(akaiFire, paintState, 2, colorChooser));
   }
 
   protected void setupMidiController() {
     midiController.setup();
 
-    midiController.addReceiver(new ReportingReceiver(akaiFire));
+//    midiController.addReceiver(new ReportingReceiver(akaiFire));
     midiController.addReceiver(new ControlChangeReceiver(akaiFire));
 
     midiController.open();

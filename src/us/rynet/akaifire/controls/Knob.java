@@ -5,8 +5,8 @@ import us.rynet.akaifire.listeners.KnobListener;
 
 public class Knob extends Control {
 
-  public int STEP_NORMAL = 1;
-  public int STEP_LARGE  = 5;
+  public byte STEP_NORMAL = 1;
+  public byte STEP_LARGE  = 5;
 
   protected byte    value         = 0;
   protected boolean useLargeSteps = false;
@@ -45,11 +45,11 @@ public class Knob extends Control {
     increment(useLargeSteps ? STEP_NORMAL : STEP_LARGE);
   }
 
-  public void increment(int steps) {
-    value += steps;
+  public void increment(byte steps) {
+    byte newValue = (byte)(value + steps);
 
-    if (value > 127)
-      value = 127;
+    if (newValue > value) value = newValue;
+    else value = 127;
 
     publish();
   }
@@ -58,11 +58,10 @@ public class Knob extends Control {
     decrement(useLargeSteps ? STEP_NORMAL : STEP_LARGE);
   }
 
-  public void decrement(int steps) {
+  public void decrement(byte steps) {
     value -= steps;
 
-    if (value < 0)
-      value = 0;
+    if (value < 0) value = 0;
 
     publish();
   }

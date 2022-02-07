@@ -21,10 +21,11 @@ public class ScreenMessage {
 
     byte[] data = stream.toByteArray();
 
-    System.out.println(this.getClass().getName() + ":");
-    for (int j = 0; j < data.length; j++)
-      System.out.format("%02X ", data[j]);
-    System.out.println();
+    // TODO
+    // System.out.println(this.getClass().getName() + ":");
+    // for (int j = 0; j < data.length; j++)
+    // System.out.format("%02X ", data[j]);
+    // System.out.println();
 
     return data;
   }
