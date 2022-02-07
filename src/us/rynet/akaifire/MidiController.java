@@ -13,7 +13,7 @@ import javax.sound.midi.Transmitter;
 
 public class MidiController {
 
-  protected MidiDevice inputDevice;           // TODO: Are these named backwards? Confusing..
+  protected MidiDevice inputDevice; // TODO: Are these named backwards? Confusing..
   protected MidiDevice outputDevice;
   protected Receiver   receiver;
 
@@ -73,6 +73,21 @@ public class MidiController {
 
   public synchronized void send(MidiMessage message) {
     receiver.send(message, -1);
+
+    // TODO: This is to fix the bug of not being able to send ANYTHING after sending the screen for some fucked up reason
+    inputDevice.close();
+
+    try {
+      inputDevice.open();
+    } catch (MidiUnavailableException error) {
+      System.err.println("Cannot open MIDI device");
+    }
+
+    try {
+      receiver = inputDevice.getReceiver();
+    } catch (MidiUnavailableException error) {
+      error.printStackTrace();
+    }
   }
 
   public void open() {

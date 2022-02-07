@@ -1,7 +1,7 @@
 package us.rynet.akaifire.controls;
 
-import us.rynet.akaifire.listeners.ControlListener;
 import us.rynet.akaifire.listeners.ButtonListener;
+import us.rynet.akaifire.listeners.ControlListener;
 
 public class Button extends Control {
 
