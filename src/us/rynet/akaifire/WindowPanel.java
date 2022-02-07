@@ -1,6 +1,7 @@
 package us.rynet.akaifire;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -67,7 +68,12 @@ public class WindowPanel extends JPanel {
     colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
       @Override
       public void stateChanged(ChangeEvent e) {
-        // showLogo();
+        Color color = colorChooser.getColor();
+        
+        byte[] rgb = { (byte)(color.getRed() / 2), (byte)(color.getGreen() / 2), (byte)(color.getBlue() / 2) };
+        application.getPaintState().setColor(rgb);
+        
+        application.sendPads();
       }
     });
     colorChooser.setBorder(BorderFactory.createTitledBorder("Pad Color"));

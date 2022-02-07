@@ -59,6 +59,10 @@ public class Application {
     midiController = new MidiController();
   }
 
+  public AkaiFire getAkaiFire() { return akaiFire; }
+
+  public PaintState getPaintState() { return paintState; }
+
   protected void run() {
     setupAkai();
     setupMidiController();
@@ -93,18 +97,22 @@ public class Application {
     akaiFire.screen.midiSend(midiController);
   }
 
+  public void sendPads() {
+    akaiFire.pads.midiSend(midiController);
+  }
+
   public void randomPads() {
     for (Pad pad : akaiFire.pads)
       pad.setColor((int)(Math.random() * 127), (int)(Math.random() * 127), (int)(Math.random() * 127));
 
-    akaiFire.pads.midiSend(midiController);
+    sendPads();
   }
 
   public void clearPads() {
     for (Pad pad : akaiFire.pads)
       pad.setColor(0, 0, 0);
 
-    akaiFire.pads.midiSend(midiController);
+    sendPads();
   }
 
   protected void setupAkai() {
@@ -113,16 +121,16 @@ public class Application {
     paintState       = new PaintState();
 
     for (Pad pad : akaiFire.pads)
-      pad.addListener(new PadChangeListener(akaiFire, midiController, paintState));
+      pad.addListener(new PadChangeListener(akaiFire, midiController, getPaintState()));
 
     akaiFire.controlButtons.get(0).addListener(new ClearListener(akaiFire, midiController));
     akaiFire.controlButtons.get(1).addListener(new InvertListener(akaiFire, midiController));
-    akaiFire.controlButtons.get(2).addListener(new PadColorSingularColorizeListener(akaiFire, midiController, paintState));
+    akaiFire.controlButtons.get(2).addListener(new PadColorSingularColorizeListener(akaiFire, midiController, getPaintState()));
     akaiFire.controlButtons.get(4).addListener(new KnobLargeStepListener(akaiFire));
 
-    akaiFire.knobs.get(0).addListener(new ColorKnobListener(akaiFire, paintState, 0));
-    akaiFire.knobs.get(1).addListener(new ColorKnobListener(akaiFire, paintState, 1));
-    akaiFire.knobs.get(2).addListener(new ColorKnobListener(akaiFire, paintState, 2));
+    akaiFire.knobs.get(0).addListener(new ColorKnobListener(akaiFire, getPaintState(), 0));
+    akaiFire.knobs.get(1).addListener(new ColorKnobListener(akaiFire, getPaintState(), 1));
+    akaiFire.knobs.get(2).addListener(new ColorKnobListener(akaiFire, getPaintState(), 2));
   }
 
   protected void setupMidiController() {
@@ -135,7 +143,7 @@ public class Application {
   }
 
   protected void setupPaintMode() {
-    paintMode = paintState.getMode();
+    paintMode = getPaintState().getMode();
   }
 
   protected void startLoop() {
@@ -169,28 +177,28 @@ public class Application {
     if (applicationState.getMode() == ApplicationState.Mode.PAINT) {
 
       // Paint mode was changed
-      if (paintState.getMode() != paintMode) {
-        paintMode = paintState.getMode();
+      if (getPaintState().getMode() != paintMode) {
+        paintMode = getPaintState().getMode();
 
-        if (paintState.getMode() == PaintState.Mode.DRAW) {
+        if (getPaintState().getMode() == PaintState.Mode.DRAW) {
           akaiFire.pads.midiSend(midiController);
-        } else if (paintState.getMode() == PaintState.Mode.PREVIEW) {
+        } else if (getPaintState().getMode() == PaintState.Mode.PREVIEW) {
           akaiFireBuffer.pads.midiSend(midiController);
         }
       }
 
       // Paint mode tick
-      if (paintState.getMode() == PaintState.Mode.DRAW) {
+      if (getPaintState().getMode() == PaintState.Mode.DRAW) {
         // Do nothing
-      } else if (paintState.getMode() == PaintState.Mode.PREVIEW) {
+      } else if (getPaintState().getMode() == PaintState.Mode.PREVIEW) {
 
         for (Pad pad : akaiFireBuffer.pads)
-          pad.setColor(paintState.getTint());
+          pad.setColor(getPaintState().getColor());
 
         akaiFireBuffer.pads.midiSend(midiController);
 
-        if (paintState.getTimeSinceModeChange() >= 500) // TODO: Magic number
-          paintState.setMode(PaintState.Mode.DRAW);
+        if (getPaintState().getTimeSinceModeChange() >= 500) // TODO: Magic number
+          getPaintState().setMode(PaintState.Mode.DRAW);
 
       }
 

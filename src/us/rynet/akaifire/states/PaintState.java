@@ -8,7 +8,7 @@ public class PaintState {
 
   protected Mode   mode          = Mode.DRAW;
   protected double modeChangedAt = 0;
-  protected byte[] tint          = { 0, 0, 0 };
+  protected byte[] color         = { 0, 0, 0 };
 
   public Mode getMode() { return mode; }
 
@@ -17,16 +17,16 @@ public class PaintState {
     this.modeChangedAt = System.nanoTime();
   }
 
-  public byte[] getTint() { return tint; }
+  public byte[] getColor() { return color; }
 
-  public void setTint(byte[] tint) { this.tint = tint; }
+  public void setColor(byte[] tint) { this.color = tint; }
 
-  public void setTintPartial(int colorIndex, byte value) {
-    tint[colorIndex] = value;
+  public void setColorPartial(int colorIndex, byte value) {
+    color[colorIndex] = value;
   }
 
-  public int getTintPartial(byte colorIndex) {
-    return tint[colorIndex];
+  public int getColorPartial(byte colorIndex) {
+    return color[colorIndex];
   }
 
   public double getTimeSinceModeChange() { return (System.nanoTime() - modeChangedAt) / 1e6; }
