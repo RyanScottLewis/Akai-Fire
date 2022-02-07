@@ -15,7 +15,6 @@ public class MidiController {
 
   protected MidiDevice inputDevice;           // TODO: Are these named backwards? Confusing..
   protected MidiDevice outputDevice;
-  protected boolean    sendTimestamps = false;
   protected Receiver   receiver;
 
   public void setup() {
@@ -73,10 +72,7 @@ public class MidiController {
   }
 
   public synchronized void send(MidiMessage message) {
-    if (sendTimestamps)
-      receiver.send(message, System.currentTimeMillis());
-    else
-      receiver.send(message, -1);
+    receiver.send(message, -1);
   }
 
   public void open() {
