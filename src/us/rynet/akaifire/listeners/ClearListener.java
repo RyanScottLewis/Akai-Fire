@@ -1,25 +1,18 @@
 package us.rynet.akaifire.listeners;
 
-import us.rynet.akaifire.AkaiFire;
-import us.rynet.akaifire.MidiController;
+import us.rynet.akaifire.Application;
 import us.rynet.akaifire.controls.Button;
-import us.rynet.akaifire.controls.Pad;
 
 public class ClearListener implements ButtonListener {
 
-  protected AkaiFire       akaiFire;
-  protected MidiController controller;
+  protected Application application;
 
-  public ClearListener(AkaiFire akaiFire, MidiController controller) {
-    this.akaiFire   = akaiFire;
-    this.controller = controller;
+  public ClearListener(Application application) {
+    this.application = application;
   }
 
   public void onPressed(Button button) {
-    for (Pad pad : akaiFire.getPads())
-      pad.setColor(0, 0, 0);
-
-    akaiFire.getPads().midiSend(controller);
+    application.clearPads();
   }
 
 }

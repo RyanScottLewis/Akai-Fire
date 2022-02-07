@@ -9,9 +9,8 @@ import us.rynet.akaifire.controls.Pad;
 import us.rynet.akaifire.listeners.ClearListener;
 import us.rynet.akaifire.listeners.ColorKnobListener;
 import us.rynet.akaifire.listeners.InvertListener;
-import us.rynet.akaifire.listeners.KnobLargeStepListener;
 import us.rynet.akaifire.listeners.PadChangeListener;
-import us.rynet.akaifire.listeners.PadColorSingularColorizeListener;
+import us.rynet.akaifire.listeners.PadFillListener;
 import us.rynet.akaifire.receivers.ControlChangeReceiver;
 import us.rynet.akaifire.receivers.ReportingReceiver;
 import us.rynet.akaifire.states.ApplicationState;
@@ -72,6 +71,10 @@ public class Application {
     setupMidiController();
     setupPaintMode();
 
+    JColorChooser colorChooser = windowPanel.getColorChooser();
+    byte[] color = paintState.getColor();
+    colorChooser.setColor(color[0] * 2, color[1] * 2, color[2] * 2);
+
     showLogo();
     clearPads();
 
@@ -85,9 +88,7 @@ public class Application {
   }
 
   public void showGrid() {
-    int min      = 2;
-    int max      = 20;
-    int gridSize = (int)(Math.random() * (max - min + 1) + min);
+    int gridSize = (int)(Math.random() * 50);
 
     for (int x = 0; x < 128; x++) {
       for (int y = 0; y < 64; y++) {
@@ -117,6 +118,23 @@ public class Application {
     sendPads();
   }
 
+  public void invertPads() {
+    for (Pad pad : akaiFire.getPads()) {
+      pad.setRed(127 - pad.getRed());
+      pad.setGreen(127 - pad.getGreen());
+      pad.setBlue(127 - pad.getBlue());
+    }
+
+    akaiFire.getPads().midiSend(midiController);
+  }
+  
+  public void fillPads() {
+    for (Pad pad : akaiFire.getPads())
+      pad.setColor(paintState.getColor());
+
+    akaiFire.getPads().midiSend(midiController);
+  }
+
   protected void setupAkai() {
     akaiFire         = new AkaiFire();
     applicationState = new ApplicationState();
@@ -126,10 +144,9 @@ public class Application {
     for (Pad pad : akaiFire.pads)
       pad.addListener(new PadChangeListener(akaiFire, midiController, paintState));
 
-    akaiFire.controlButtons.get(0).addListener(new ClearListener(akaiFire, midiController));
-    akaiFire.controlButtons.get(1).addListener(new InvertListener(akaiFire, midiController));
-    akaiFire.controlButtons.get(2).addListener(new PadColorSingularColorizeListener(akaiFire, midiController, paintState));
-    akaiFire.controlButtons.get(4).addListener(new KnobLargeStepListener(akaiFire));
+    akaiFire.controlButtons.get(0).addListener(new ClearListener(this));
+    akaiFire.controlButtons.get(1).addListener(new InvertListener(this));
+    akaiFire.controlButtons.get(2).addListener(new PadFillListener(this));
 
     JColorChooser colorChooser = windowPanel.getColorChooser();
     akaiFire.knobs.get(0).addListener(new ColorKnobListener(akaiFire, paintState, 0, colorChooser));
@@ -140,7 +157,7 @@ public class Application {
   protected void setupMidiController() {
     midiController.setup();
 
-//    midiController.addReceiver(new ReportingReceiver(akaiFire));
+    midiController.addReceiver(new ReportingReceiver(akaiFire));
     midiController.addReceiver(new ControlChangeReceiver(akaiFire));
 
     midiController.open();

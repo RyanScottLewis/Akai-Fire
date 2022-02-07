@@ -9,6 +9,7 @@ import us.rynet.akaifire.controls.Button;
 import us.rynet.akaifire.controls.Control;
 import us.rynet.akaifire.controls.ControlFactory;
 import us.rynet.akaifire.controls.Knob;
+import us.rynet.akaifire.controls.Pad;
 
 // TODO: Rename to simply Device
 public class AkaiFire {
@@ -84,6 +85,10 @@ public class AkaiFire {
   public Button getSelectButton() { return selectButton; }
 
   public ButtonCollection getGridButtons() { return gridButtons; }
+  
+  public Pad getPadAtCoordinates(int row, int column) {
+    return pads.getAtCoordinates(row, column);
+  }
 
   protected void setupControls() {
     ControlFactory controlFactory = new ControlFactory(getControls());
