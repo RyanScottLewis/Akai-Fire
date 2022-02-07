@@ -9,8 +9,6 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -19,23 +17,8 @@ public class WindowPanel extends JPanel {
 
   private static final long serialVersionUID = 9138758044020206126L;
 
-  protected static final String TITLE = "Akai Fire";
-
-  protected JColorChooser colorChooser;
-
   protected Application application;
-
-  public static void run(Application application) {
-    JFrame frame = new JFrame(TITLE);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    JComponent newContentPane = new WindowPanel(application);
-    newContentPane.setOpaque(true); // content panes must be opaque
-    frame.setContentPane(newContentPane);
-
-    frame.pack();
-    frame.setVisible(true);
-  }
+  private JColorChooser colorChooser;
 
   public WindowPanel(Application application) {
     super(new BorderLayout());
@@ -69,10 +52,10 @@ public class WindowPanel extends JPanel {
       @Override
       public void stateChanged(ChangeEvent e) {
         Color color = colorChooser.getColor();
-        
+
         byte[] rgb = { (byte)(color.getRed() / 2), (byte)(color.getGreen() / 2), (byte)(color.getBlue() / 2) };
         application.getPaintState().setColor(rgb);
-        
+
         application.sendPads();
       }
     });
@@ -80,5 +63,7 @@ public class WindowPanel extends JPanel {
 
     add(colorChooser, BorderLayout.PAGE_END);
   }
+
+  public JColorChooser getColorChooser() { return colorChooser; }
 
 }

@@ -1,5 +1,7 @@
 package us.rynet.akaifire;
 
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import us.rynet.akaifire.controls.Pad;
@@ -24,6 +26,7 @@ public class Application {
   protected PaintState.Mode  paintMode;
   protected AkaiFire         akaiFireBuffer = new AkaiFire();
   protected MidiController   midiController;
+  protected WindowPanel      windowPanel;
 
   protected byte[] bitmap = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -119,18 +122,19 @@ public class Application {
     akaiFire         = new AkaiFire();
     applicationState = new ApplicationState();
     paintState       = new PaintState();
+    windowPanel      = new WindowPanel(this);
 
     for (Pad pad : akaiFire.pads)
-      pad.addListener(new PadChangeListener(akaiFire, midiController, getPaintState()));
+      pad.addListener(new PadChangeListener(akaiFire, midiController, paintState));
 
     akaiFire.controlButtons.get(0).addListener(new ClearListener(akaiFire, midiController));
     akaiFire.controlButtons.get(1).addListener(new InvertListener(akaiFire, midiController));
-    akaiFire.controlButtons.get(2).addListener(new PadColorSingularColorizeListener(akaiFire, midiController, getPaintState()));
+    akaiFire.controlButtons.get(2).addListener(new PadColorSingularColorizeListener(akaiFire, midiController, paintState));
     akaiFire.controlButtons.get(4).addListener(new KnobLargeStepListener(akaiFire));
 
-    akaiFire.knobs.get(0).addListener(new ColorKnobListener(akaiFire, getPaintState(), 0));
-    akaiFire.knobs.get(1).addListener(new ColorKnobListener(akaiFire, getPaintState(), 1));
-    akaiFire.knobs.get(2).addListener(new ColorKnobListener(akaiFire, getPaintState(), 2));
+    akaiFire.knobs.get(0).addListener(new ColorKnobListener(akaiFire, paintState, 0, windowPanel.getColorChooser()));
+    akaiFire.knobs.get(1).addListener(new ColorKnobListener(akaiFire, paintState, 1, windowPanel.getColorChooser()));
+    akaiFire.knobs.get(2).addListener(new ColorKnobListener(akaiFire, paintState, 2, windowPanel.getColorChooser()));
   }
 
   protected void setupMidiController() {
@@ -143,7 +147,7 @@ public class Application {
   }
 
   protected void setupPaintMode() {
-    paintMode = getPaintState().getMode();
+    paintMode = paintState.getMode();
   }
 
   protected void startLoop() {
@@ -164,11 +168,17 @@ public class Application {
   }
 
   protected void startWindow() {
-    Application application = this;
-
     SwingUtilities.invokeLater(new Runnable() {
       public void run() {
-        WindowPanel.run(application);
+        JFrame frame = new JFrame("Akai Fire");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JComponent newContentPane = windowPanel;
+        newContentPane.setOpaque(true); // content panes must be opaque
+        frame.setContentPane(newContentPane);
+
+        frame.pack();
+        frame.setVisible(true);
       }
     });
   }
@@ -177,28 +187,28 @@ public class Application {
     if (applicationState.getMode() == ApplicationState.Mode.PAINT) {
 
       // Paint mode was changed
-      if (getPaintState().getMode() != paintMode) {
-        paintMode = getPaintState().getMode();
+      if (paintState.getMode() != paintMode) {
+        paintMode = paintState.getMode();
 
-        if (getPaintState().getMode() == PaintState.Mode.DRAW) {
+        if (paintState.getMode() == PaintState.Mode.DRAW) {
           akaiFire.pads.midiSend(midiController);
-        } else if (getPaintState().getMode() == PaintState.Mode.PREVIEW) {
+        } else if (paintState.getMode() == PaintState.Mode.PREVIEW) {
           akaiFireBuffer.pads.midiSend(midiController);
         }
       }
 
       // Paint mode tick
-      if (getPaintState().getMode() == PaintState.Mode.DRAW) {
+      if (paintState.getMode() == PaintState.Mode.DRAW) {
         // Do nothing
-      } else if (getPaintState().getMode() == PaintState.Mode.PREVIEW) {
+      } else if (paintState.getMode() == PaintState.Mode.PREVIEW) {
 
         for (Pad pad : akaiFireBuffer.pads)
-          pad.setColor(getPaintState().getColor());
+          pad.setColor(paintState.getColor());
 
         akaiFireBuffer.pads.midiSend(midiController);
 
-        if (getPaintState().getTimeSinceModeChange() >= 500) // TODO: Magic number
-          getPaintState().setMode(PaintState.Mode.DRAW);
+        if (paintState.getTimeSinceModeChange() >= 500) // TODO: Magic number
+          paintState.setMode(PaintState.Mode.DRAW);
 
       }
 
