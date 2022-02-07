@@ -20,7 +20,7 @@ public class Screen {
     }
   }
 
-  public void plotPixel(int x, int y, int c) {
+  public void plotPixel(int x, int y, int color) {
     int remapBit;
     int position;
 
@@ -32,7 +32,7 @@ public class Screen {
       remapBit = BIT_MUTATE[y][x % 7];    // Remap by tiling 8x7 block of translated pixels.
       position = x / 7 * 8 + remapBit / 7;
 
-      if (c > 0) {
+      if (color > 0) {
         bitmap[position] |= 1 << (remapBit % 7);
       } else {
         bitmap[position] &= ~(1 << (remapBit % 7));
