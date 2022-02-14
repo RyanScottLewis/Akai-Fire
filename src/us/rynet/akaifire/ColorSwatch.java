@@ -27,12 +27,11 @@ public class ColorSwatch extends AbstractButton {
     int       x            = originalSize.width + gap;
     int       y            = gap;
 
-    // Color color = new Color(pad.getRed() * 2, pad.getGreen() * 2, pad.getBlue() * 2);
-    Color color = new Color(pad.getRed(), pad.getGreen(), pad.getBlue());
+    Color color = new Color(pad.getRed() * 2, pad.getGreen() * 2, pad.getBlue() * 2);
     graphics.setColor(color);
 
     Dimension size = getPreferredSize();
-    graphics.drawRect(x, y, size.width, size.height);
+    graphics.fillRect(x, y, size.width, size.height);
   }
 
   @Override
