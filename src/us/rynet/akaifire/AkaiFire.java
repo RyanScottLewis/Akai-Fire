@@ -85,7 +85,7 @@ public class AkaiFire {
   public Button getSelectButton() { return selectButton; }
 
   public ButtonCollection getGridButtons() { return gridButtons; }
-  
+
   public Pad getPadAtCoordinates(int row, int column) {
     return pads.getAtCoordinates(row, column);
   }

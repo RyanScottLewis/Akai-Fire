@@ -73,7 +73,7 @@ public class Application {
     setupPaintMode();
 
     JColorChooser colorChooser = windowPanel.getColorChooser();
-    byte[] color = paintState.getColor();
+    byte[]        color        = paintState.getColor();
     colorChooser.setColor(color[0] * 2, color[1] * 2, color[2] * 2);
 
     showLogo();
@@ -128,7 +128,7 @@ public class Application {
 
     akaiFire.getPads().midiSend(midiController);
   }
-  
+
   public void fillPads() {
     for (Pad pad : akaiFire.getPads())
       pad.setColor(paintState.getColor());
