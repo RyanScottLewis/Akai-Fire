@@ -1,6 +1,7 @@
 package us.rynet.akaifire;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -40,10 +41,12 @@ public class WindowPanel extends JPanel {
       JPanel panelRow = new JPanel();
 
       for (int column = 0; column < AkaiFire.PAD_COLUMN_COUNT; column++) {
-        
+
         System.out.println("Row: " + row + " Col: " + column);
         Pad         pad         = akaiFire.getPadAtCoordinates(row, column);
         ColorSwatch colorSwatch = new ColorSwatch(pad);
+
+        colorSwatch.setPreferredSize(new Dimension(20, 20));
 
         panelRow.add(colorSwatch);
       }
