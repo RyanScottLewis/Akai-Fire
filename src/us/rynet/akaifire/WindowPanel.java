@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -19,15 +20,17 @@ public class WindowPanel extends JPanel {
 
   private static final long serialVersionUID = 9138758044020206126L;
 
-  protected Application   application;
-  protected JColorChooser colorChooser;
+  protected Application            application;
+  protected JColorChooser          colorChooser;
+  protected ArrayList<ColorSwatch> colorSwatches;
 
   public WindowPanel(Application application) {
     super();
 
     setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-    this.application = application;
+    this.application   = application;
+    this.colorSwatches = new ArrayList<ColorSwatch>();
 
     createPanelButtons();
     createColorChooser();
@@ -41,10 +44,10 @@ public class WindowPanel extends JPanel {
       JPanel panelRow = new JPanel();
 
       for (int column = 0; column < AkaiFire.PAD_COLUMN_COUNT; column++) {
-
-        System.out.println("Row: " + row + " Col: " + column);
         Pad         pad         = akaiFire.getPadAtCoordinates(row, column);
         ColorSwatch colorSwatch = new ColorSwatch(pad);
+
+        colorSwatches.add(colorSwatch);
 
         colorSwatch.setPreferredSize(new Dimension(20, 20));
 
@@ -60,6 +63,8 @@ public class WindowPanel extends JPanel {
   }
 
   public JColorChooser getColorChooser() { return colorChooser; }
+
+  public ArrayList<ColorSwatch> getColorSwatches() { return colorSwatches; }
 
   private void createPanelButtons() {
     JPanel panelScreenButtons = createPanelScreenButtons();

@@ -8,6 +8,7 @@ import javax.swing.SwingUtilities;
 import us.rynet.akaifire.controls.Pad;
 import us.rynet.akaifire.listeners.ClearListener;
 import us.rynet.akaifire.listeners.ColorKnobListener;
+import us.rynet.akaifire.listeners.ColorSwatchPadChangeListener;
 import us.rynet.akaifire.listeners.InvertListener;
 import us.rynet.akaifire.listeners.PadChangeListener;
 import us.rynet.akaifire.listeners.PadFillListener;
@@ -141,8 +142,10 @@ public class Application {
     paintState       = new PaintState();
     windowPanel      = new WindowPanel(this);
 
-    for (Pad pad : akaiFire.pads)
+    for (Pad pad : akaiFire.pads) {
       pad.addListener(new PadChangeListener(akaiFire, midiController, paintState));
+      pad.addListener(new ColorSwatchPadChangeListener(akaiFire, windowPanel.getColorSwatches()));
+    }
 
     akaiFire.controlButtons.get(0).addListener(new ClearListener(this));
     akaiFire.controlButtons.get(1).addListener(new InvertListener(this));
