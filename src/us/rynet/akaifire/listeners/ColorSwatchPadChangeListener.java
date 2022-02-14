@@ -17,6 +17,9 @@ public class ColorSwatchPadChangeListener implements PadListener {
   }
 
   public void onPressed(Pad pad) {
+    // TODO: Only update the related colorSwatch to the Pad pressed...
+    // Like: if (colorSwatch.getPad() == pad) { colorSwatch.repaint(); break; }
+    // Or index colorSwatches by pads in a Hash map
     for (ColorSwatch colorSwatch : colorSwatches)
       colorSwatch.repaint();
   }
