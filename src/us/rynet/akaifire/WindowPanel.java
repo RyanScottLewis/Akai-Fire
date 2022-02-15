@@ -183,6 +183,7 @@ public class WindowPanel extends JPanel {
 
     for (int row = 0; row < AkaiFire.PAD_ROW_COUNT; row++) {
       JPanel panelRow = new JPanel();
+      panelRow.setLayout(new BoxLayout(panelRow, BoxLayout.X_AXIS));
 
       for (int column = 0; column < AkaiFire.PAD_COLUMN_COUNT; column++) {
         Pad         pad         = akaiFire.getPadAtCoordinates(row, column);
@@ -190,7 +191,20 @@ public class WindowPanel extends JPanel {
 
         colorSwatches.add(colorSwatch);
 
-        colorSwatch.setPreferredSize(new Dimension(20, 20));
+        Dimension size = new Dimension(20, 20);
+        colorSwatch.setSize(size);
+        colorSwatch.setMinimumSize(size);
+        colorSwatch.setMaximumSize(size);
+        colorSwatch.setPreferredSize(size);
+        colorSwatch.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent event) {
+            Color color = colorChooser.getColor();
+
+            pad.setColor(color.getRed() / 2, color.getGreen() / 2, color.getBlue() / 2);
+            pad.midiSend(application.getMidiController());
+          }
+        });
 
         panelRow.add(colorSwatch);
       }

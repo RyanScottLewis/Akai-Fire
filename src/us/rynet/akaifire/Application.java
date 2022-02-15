@@ -67,6 +67,10 @@ public class Application {
 
   public PaintState getPaintState() { return paintState; }
 
+  public MidiController getMidiController() {
+    return midiController;
+  }
+
   protected void run() {
     setupAkai();
     setupMidiController();
@@ -85,7 +89,7 @@ public class Application {
 
   public void showLogo() {
     akaiFire.screen.setBitmap(bitmap);
-    akaiFire.screen.midiSend(midiController);
+    akaiFire.screen.midiSend(getMidiController());
   }
 
   public void showGrid() {
@@ -98,11 +102,11 @@ public class Application {
       }
     }
 
-    akaiFire.screen.midiSend(midiController);
+    akaiFire.screen.midiSend(getMidiController());
   }
 
   public void sendPads() {
-    akaiFire.pads.midiSend(midiController);
+    akaiFire.pads.midiSend(getMidiController());
   }
 
   public void randomPads() {
@@ -126,14 +130,14 @@ public class Application {
       pad.setBlue(127 - pad.getBlue());
     }
 
-    akaiFire.getPads().midiSend(midiController);
+    akaiFire.getPads().midiSend(getMidiController());
   }
 
   public void fillPads() {
     for (Pad pad : akaiFire.getPads())
       pad.setColor(paintState.getColor());
 
-    akaiFire.getPads().midiSend(midiController);
+    akaiFire.getPads().midiSend(getMidiController());
   }
 
   protected void setupAkai() {
@@ -143,7 +147,7 @@ public class Application {
     windowPanel      = new WindowPanel(this);
 
     for (Pad pad : akaiFire.pads) {
-      pad.addListener(new PadChangeListener(akaiFire, midiController, paintState));
+      pad.addListener(new PadChangeListener(akaiFire, getMidiController(), paintState));
       pad.addListener(new ColorSwatchPadChangeListener(akaiFire, windowPanel.getColorSwatches()));
     }
 
@@ -158,12 +162,12 @@ public class Application {
   }
 
   protected void setupMidiController() {
-    midiController.setup();
+    getMidiController().setup();
 
-    midiController.addReceiver(new ReportingReceiver(akaiFire));
-    midiController.addReceiver(new ControlChangeReceiver(akaiFire));
+    getMidiController().addReceiver(new ReportingReceiver(akaiFire));
+    getMidiController().addReceiver(new ControlChangeReceiver(akaiFire));
 
-    midiController.open();
+    getMidiController().open();
   }
 
   protected void setupPaintMode() {
@@ -177,7 +181,7 @@ public class Application {
           Thread.sleep(1000l / FPS);
           update();
         } catch (InterruptedException error) {
-          midiController.close();
+          getMidiController().close();
           error.printStackTrace();
         }
       }
@@ -211,9 +215,9 @@ public class Application {
         paintMode = paintState.getMode();
 
         if (paintState.getMode() == PaintState.Mode.DRAW) {
-          akaiFire.pads.midiSend(midiController);
+          akaiFire.pads.midiSend(getMidiController());
         } else if (paintState.getMode() == PaintState.Mode.PREVIEW) {
-          akaiFireBuffer.pads.midiSend(midiController);
+          akaiFireBuffer.pads.midiSend(getMidiController());
         }
       }
 
@@ -225,7 +229,7 @@ public class Application {
         for (Pad pad : akaiFireBuffer.pads)
           pad.setColor(paintState.getColor());
 
-        akaiFireBuffer.pads.midiSend(midiController);
+        akaiFireBuffer.pads.midiSend(getMidiController());
 
         if (paintState.getTimeSinceModeChange() >= 500) // TODO: Magic number
           paintState.setMode(PaintState.Mode.DRAW);

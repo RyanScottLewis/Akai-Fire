@@ -1,14 +1,13 @@
 package us.rynet.akaifire;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 
-import javax.swing.AbstractButton;
+import javax.swing.JButton;
 
 import us.rynet.akaifire.controls.Pad;
 
-public class ColorSwatch extends AbstractButton {
+public class ColorSwatch extends JButton {
 
   private static final long serialVersionUID = -3733266728451388517L;
 
@@ -22,23 +21,11 @@ public class ColorSwatch extends AbstractButton {
   protected void paintComponent(Graphics graphics) {
     super.paintComponent(graphics);
 
-    Dimension originalSize = super.getPreferredSize();
-    int       gap          = (int)(originalSize.height * 0.2);
-    int       x            = originalSize.width + gap;
-    int       y            = gap;
-
     Color color = new Color(pad.getRed() * 2, pad.getGreen() * 2, pad.getBlue() * 2);
     graphics.setColor(color);
+    graphics.fillRect(0, 0, getWidth(), getHeight());
 
-    Dimension size = getPreferredSize();
-    graphics.fillRect(x, y, size.width, size.height);
-  }
-
-  @Override
-  public Dimension getPreferredSize() {
-    Dimension size = super.getPreferredSize();
-    size.width += size.height;
-    return size;
+    graphics.dispose();
   }
 
 }
