@@ -192,7 +192,7 @@ public class WindowPanel extends JPanel {
         colorSwatches.add(colorSwatch);
 
         Dimension size = new Dimension(20, 20);
-        colorSwatch.setSize(size);
+        colorSwatch.setSize(size); // TODO: Is all this shit really needed? Really? REALLY?!
         colorSwatch.setMinimumSize(size);
         colorSwatch.setMaximumSize(size);
         colorSwatch.setPreferredSize(size);
