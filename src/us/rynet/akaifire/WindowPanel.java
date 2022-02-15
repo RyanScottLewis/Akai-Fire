@@ -34,32 +34,7 @@ public class WindowPanel extends JPanel {
 
     createPanelButtons();
     createColorChooser();
-
-    JPanel panelPads = new JPanel();
-    panelPads.setLayout(new BoxLayout(panelPads, BoxLayout.Y_AXIS));
-
-    AkaiFire akaiFire = application.getAkaiFire();
-
-    for (int row = 0; row < AkaiFire.PAD_ROW_COUNT; row++) {
-      JPanel panelRow = new JPanel();
-
-      for (int column = 0; column < AkaiFire.PAD_COLUMN_COUNT; column++) {
-        Pad         pad         = akaiFire.getPadAtCoordinates(row, column);
-        ColorSwatch colorSwatch = new ColorSwatch(pad);
-
-        colorSwatches.add(colorSwatch);
-
-        colorSwatch.setPreferredSize(new Dimension(20, 20));
-
-        panelRow.add(colorSwatch);
-      }
-
-      panelPads.add(panelRow);
-    }
-
-    panelPads.setBorder(BorderFactory.createTitledBorder("Pads"));
-
-    add(panelPads);
+    createColorSwatches();
   }
 
   public JColorChooser getColorChooser() { return colorChooser; }
@@ -198,6 +173,34 @@ public class WindowPanel extends JPanel {
     colorChooser.setBorder(BorderFactory.createTitledBorder("Pad Color"));
 
     add(colorChooser);
+  }
+
+  protected void createColorSwatches() {
+    JPanel panelPads = new JPanel();
+    panelPads.setLayout(new BoxLayout(panelPads, BoxLayout.Y_AXIS));
+
+    AkaiFire akaiFire = application.getAkaiFire();
+
+    for (int row = 0; row < AkaiFire.PAD_ROW_COUNT; row++) {
+      JPanel panelRow = new JPanel();
+
+      for (int column = 0; column < AkaiFire.PAD_COLUMN_COUNT; column++) {
+        Pad         pad         = akaiFire.getPadAtCoordinates(row, column);
+        ColorSwatch colorSwatch = new ColorSwatch(pad);
+
+        colorSwatches.add(colorSwatch);
+
+        colorSwatch.setPreferredSize(new Dimension(20, 20));
+
+        panelRow.add(colorSwatch);
+      }
+
+      panelPads.add(panelRow);
+    }
+
+    panelPads.setBorder(BorderFactory.createTitledBorder("Pads"));
+
+    add(panelPads);
   }
 
 }
